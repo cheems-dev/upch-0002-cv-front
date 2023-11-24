@@ -1,0 +1,11 @@
+export { default as BadgeIcon } from "./icons/BadgeIcon";
+export { default as BarChartIcon } from "./icons/BarChartIcon";
+export { default as CalendarIcon } from "./icons/CalendarIcon";
+export { default as CameraIcon } from "./icons/CameraIcon";
+export { default as EducationIcon } from "./icons/EducationIcon";
+export { default as HomeIcon } from "./icons/HomeIcon";
+export { default as LoadingIcon } from "./icons/LoadingIcon";
+export { default as PeopleIcon } from "./icons/PeopleIcon";
+export { default as UploadIcon } from "./icons/UploadIcon";
+export { default as WorkIcon } from "./icons/WorkIcon";
+export { default as WorldIcon } from "./icons/WorldIcon";
