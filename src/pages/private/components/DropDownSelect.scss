@@ -1,0 +1,21 @@
+.dropdown-item {
+  span {
+    font-size: 12.2px;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    display: block;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    overflow: hidden;
+  }
+}
+
+.dropdown {
+  button {
+    background: #ffffff;
+    border-color: #ced4da !important;
+    color: #231f1f;
+    height: 32px;
+    font-size: 14px;
+  }
+}

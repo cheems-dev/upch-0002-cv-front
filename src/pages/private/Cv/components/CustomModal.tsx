@@ -10,7 +10,7 @@ interface Props {
 }
 
 const CustomModal: React.FC<Props> = (props) => {
-  const { title, icon, show, onClose, children, id } = props;
+  const { title, icon, show, onClose, children, id, ...rest } = props;
 
   const elements = Children.toArray(children);
 
@@ -21,8 +21,9 @@ const CustomModal: React.FC<Props> = (props) => {
       aria-hidden={!show}
       id={id}
       style={{ display: show ? "block" : "none" }}
-      aria-modal={{ display: show ? "true" : "" }}
+      aria-modal={show ? "true" : undefined}
       role="dialog"
+      {...rest}
     >
       <div className="modal-dialog modal-xl modal-dialog-centered">
         <div className="modal-content">

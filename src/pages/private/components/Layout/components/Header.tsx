@@ -1,6 +1,6 @@
 import LogoImg from "@assets/img/logo.png";
 import HomeIcon from "@components/icons/HomeIcon";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "routes/utils";
 

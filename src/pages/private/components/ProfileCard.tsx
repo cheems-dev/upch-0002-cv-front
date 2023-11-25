@@ -1,7 +1,14 @@
 import { CameraIcon, UploadIcon } from "@components/index";
-import React, { CSSProperties, ChangeEvent, useRef, useState } from "react";
+import React, {
+  CSSProperties,
+  ChangeEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { CustomModal } from ".";
 import PeopleIcon from "@components/icons/PeopleIcon";
+import Tagify from "@yaireo/tagify";
 
 const imageStyles: CSSProperties = {
   height: "180px",
@@ -44,6 +51,38 @@ const ProfileCard: React.FC<Props> = (props) => {
       const selectedFile = event.target.files[0];
       // Puedes realizar acciones adicionales con el archivo seleccionado si es necesario
       console.log("Archivo seleccionado:", selectedFile);
+    }
+  };
+
+  const [, setTags] = useState({
+    input5: [],
+  });
+
+  useEffect(() => {
+    initializeTagify("tags-outside-5", [
+      "Compensaciones y desempeño",
+      "Dirección de desarrollo Humano",
+    ]);
+  }, []);
+
+  const initializeTagify = (inputName: string, whitelist: string[]) => {
+    const input = document.querySelector(
+      `input[name=${inputName}]`
+    ) as HTMLInputElement;
+
+    if (input) {
+      const tagifyInstance = new Tagify(input, {
+        whitelist,
+        dropdown: {
+          position: "input",
+          enabled: 0,
+        },
+      });
+
+      setTags((prevTags) => ({
+        ...prevTags,
+        [inputName]: tagifyInstance,
+      }));
     }
   };
 
@@ -217,9 +256,8 @@ const ProfileCard: React.FC<Props> = (props) => {
                       className="form-control form-control-sm"
                       rows={3}
                       cols={50}
-                    >
-                      Ingresar descripción
-                    </textarea>
+                      defaultValue={" Ingresar descripción"}
+                    ></textarea>
                   </div>
                 </div>
               </div>
@@ -286,7 +324,7 @@ const ProfileCard: React.FC<Props> = (props) => {
                     <input
                       name="tags-outside-5"
                       placeholder="Escribe la herramienta digital"
-                      className="form-control-sm form-control tagify--outside"
+                      className="tagify--outside"
                     />
                   </div>
                 </div>
@@ -326,9 +364,8 @@ const ProfileCard: React.FC<Props> = (props) => {
                       className="form-control form-control-sm"
                       rows={3}
                       cols={50}
-                    >
-                      Escribe tu dirección
-                    </textarea>
+                      defaultValue="Escribe tu dirección"
+                    ></textarea>
                   </div>
                 </div>
               </div>

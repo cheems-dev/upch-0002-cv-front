@@ -1,8 +1,8 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
-  icon: "pen" | "people" | "people-white";
+  icon: string;
   navigate: string;
   title: string;
   className: string;

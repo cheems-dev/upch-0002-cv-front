@@ -4,8 +4,9 @@ import Photo03 from "@assets/img/photo_3.png";
 import Photo04 from "@assets/img/photo_4.png";
 import Photo05 from "@assets/img/photo_5.png";
 import Photo06 from "@assets/img/photo_6.png";
-import { useId } from "react";
-import { Layout, PersonCard } from "../components";
+import { useId, useState } from "react";
+import { DropDownSelect, Layout, PersonCard } from "../components";
+import { Option } from "../types/options.types";
 
 const dataFake = [
   {
@@ -46,8 +47,35 @@ const dataFake = [
   },
 ];
 
+const options: Option[] = [
+  { name: "DIRECCIÓN GENERAL DE ADMINISTRACIÓN", value: "1" },
+  { name: "Otro", value: "2" },
+];
+
+const optionsArea: Option[] = [
+  { name: "DIRECCIÓN GENERAL DE ADMINISTRACIÓN", value: "1" },
+  { name: "Otro", value: "2" },
+];
+
+const optionsSection: Option[] = [
+  { name: "COMPENSACIONES Y DESEMPEÑO", value: "1" },
+  { name: "Otro", value: "2" },
+];
+
+const optionsReport: Option[] = [
+  { name: "MORA YTURRI MIRTHA LUCERO", value: "1" },
+  { name: "COELLO JIMENEZ IRMA", value: "2" },
+  { name: "RAMOS QUISPE ISABEL MILAGROS", value: "3" },
+  { name: "HERNANDEZ GUILLEN ARIANA BRIGGIT", value: "4" },
+  { name: "Otro", value: "5" },
+];
+
 const People = () => {
   const id = useId();
+  const [selectedDepartamento, setSelectedDepartamento] = useState(options[0]);
+  const [selectedArea, setSelectedArea] = useState(optionsArea[0]);
+  const [selectedSection, setSelectedSection] = useState(optionsSection[0]);
+  const [selectedReport, setSelectedReport] = useState(optionsReport[0]);
 
   return (
     <Layout>
@@ -63,50 +91,41 @@ const People = () => {
               <div className="card-body px-4 pb-4 form-outline">
                 <div className="row">
                   <div className="col-md-4 mt-2">
-                    <div className="form-group">
-                      <label className="mb-1 fw-regular">Departamento:</label>
-                      <select className="form-select form-select-sm single-select select-bs">
-                        <option value="1">
-                          DIRECCIÓN GENERAL DE ADMINISTRACIÓN
-                        </option>
-                        <option value="2">Otro</option>
-                      </select>
-                    </div>
+                    <DropDownSelect
+                      label="Departamento:"
+                      select={selectedDepartamento}
+                      onSelect={setSelectedDepartamento}
+                      options={options}
+                    />
                   </div>
-                  <div className="col-md-4 mt-2">
-                    <div className="form-group">
-                      <label className="mb-1 fw-regular">Área:</label>
-                      <select className="form-select form-select-sm single-select select-bs">
-                        <option value="1">
-                          DIRECCIÓN DE DESARROLLO HUMANO
-                        </option>
-                        <option value="2">Otro</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="col-md-4 mt-2">
-                    <div className="form-group">
-                      <label className="mb-1 fw-regular">Sección:</label>
-                      <select className="form-select form-select-sm single-select select-bs">
-                        <option value="1">COMPENSACIONES Y DESEMPEÑO</option>
-                        <option value="2">Otro</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="col-md-4 my-2 ">
-                    <div className="form-group form-outline select-reporte">
-                      <label className="mb-1 fw-regular">Reporta a:</label>
-                      <select className="form-select form-select-sm single-select  select-bs">
-                        <option value="1">MORA YTURRI MIRTHA LUCERO</option>
 
-                        <option value="2">COELLO JIMENEZ IRMA</option>
-                        <option value="3">RAMOS QUISPE ISABEL MILAGROS</option>
-                        <option value="4">
-                          HERNANDEZ GUILLEN ARIANA BRIGGIT
-                        </option>
-                      </select>
-                    </div>
+                  <div className="col-md-4 mt-2">
+                    <DropDownSelect
+                      label="Área:"
+                      select={selectedArea}
+                      onSelect={setSelectedArea}
+                      options={optionsArea}
+                    />
                   </div>
+
+                  <div className="col-md-4 mt-2">
+                    <DropDownSelect
+                      label="Sección:"
+                      select={selectedSection}
+                      onSelect={setSelectedSection}
+                      options={optionsSection}
+                    />
+                  </div>
+
+                  <div className="col-md-4 mt-2">
+                    <DropDownSelect
+                      label="Reporta a:"
+                      select={selectedReport}
+                      onSelect={setSelectedReport}
+                      options={optionsReport}
+                    />
+                  </div>
+
                   <div className="col-md-4 my-2">
                     <div className="form-group input-persona">
                       <label className="mb-1 fw-regular">

@@ -1,5 +1,5 @@
-import { CSSProperties, useState } from "react";
-import { Accordion, Layout, ProfileCard } from "../components";
+import { CSSProperties, useEffect, useState } from "react";
+import { Accordion, DropDownSelect, Layout, ProfileCard } from "../components";
 import imgLogo from "@assets/img/profile.png";
 import imgLogoUpchRojo from "@assets/img/logo_upchrojo.png";
 import imgLogoUsil from "@assets/img/logo_usil.png";
@@ -15,6 +15,8 @@ import {
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { Option } from "../types/options.types";
+import Tagify from "@yaireo/tagify";
 
 const containerStyles = {
   maxWidth: "98%",
@@ -24,10 +26,135 @@ const imgStyles: CSSProperties = {
   objectFit: "contain",
 };
 
+const optionsModalOne: Option[] = [
+  { name: "Educacion", value: "1" },
+  { name: "Otro", value: "2" },
+];
+const optionsModalSecondFieldOne = [{ name: "Maestría", value: "1" }];
+const optionsModalSecondFieldTwo = [{ name: "Educación", value: "1" }];
+const optionsModalSecondFieldThree = [{ name: "Perú", value: "1" }];
+const optionsModalSecondFieldFourth = [
+  { name: "Universidad Peruana Cayetano Heredia", value: "1" },
+  { name: "Otro", value: "2" },
+];
+
+const optionsModalThreeFieldOne = [
+  { name: "Linkedin", value: "1" },
+  { name: "Otro", value: "2" },
+];
+const optionsModalThreeFieldTwo = [
+  { name: "Certificación", value: "1" },
+  { name: "Diplomado", value: "2" },
+  { name: "Curso", value: "3" },
+  { name: "Otro", value: "4" },
+];
+const optionsModalThreeFieldThree = [
+  { name: "2022", value: "1" },
+  { name: "2023", value: "2" },
+  { name: "2023", value: "3" },
+  { name: "2024", value: "4" },
+];
+
+const optionsModalFourthFieldOne = [
+  { name: "Ingles", value: "1" },
+  { name: "Otro", value: "2" },
+];
+const optionsModalFourthFieldTwo = [
+  { name: "Básico", value: "1" },
+  { name: "Intermedio", value: "2" },
+  { name: "Avanzado", value: "2" },
+];
+const optionsModalFourthFieldThree = [
+  { name: "Básico", value: "1" },
+  { name: "Intermedio", value: "2" },
+  { name: "Avanzado", value: "2" },
+];
+const optionsModalFourthFieldFourth = [
+  { name: "Básico", value: "1" },
+  { name: "Intermedio", value: "2" },
+  { name: "Avanzado", value: "2" },
+];
+
 const Cv = () => {
   /* TODO: cambia el useState para los diferentes dataPicker */
   const [startDate, setStartDate] = useState(new Date());
+  const [selectedModalOne, setSelectedModalOne] = useState(optionsModalOne[0]);
+  const [selectedModalSecondFieldOne, setSelectedModalSecondOne] = useState(
+    optionsModalSecondFieldOne[0]
+  );
+  const [selectedModalSecondFieldTwo, setSelectedModalSecondFieldTwo] =
+    useState(optionsModalSecondFieldTwo[0]);
+  const [selectedModalSecondFieldThree, setSelectedModalSecondFieldThree] =
+    useState(optionsModalSecondFieldThree[0]);
+  const [selectedModalSecondFieldFourth, setSelectedModalSecondFieldFourth] =
+    useState(optionsModalSecondFieldFourth[0]);
 
+  const [selectedModalThreeFieldOne, setSelectedModalThreeFieldOne] = useState(
+    optionsModalThreeFieldOne[0]
+  );
+  const [selectedModalThreeFieldTwo, setSelectedModalThreeFieldTwo] = useState(
+    optionsModalThreeFieldTwo[0]
+  );
+  const [selectedModalThreeFieldThree, setSelectedModalThreeFieldThree] =
+    useState(optionsModalThreeFieldThree[0]);
+
+  const [selectedModalFourthFieldOne, setSelectedModalFourthFieldOne] =
+    useState(optionsModalFourthFieldOne[0]);
+  const [selectedModalFourthFieldTwo, setSelectedModalFourthFieldTwo] =
+    useState(optionsModalFourthFieldTwo[0]);
+  const [selectedModalFourthFieldThree, setSelectedModalFourthFieldThree] =
+    useState(optionsModalFourthFieldThree[0]);
+  const [selectedModalFourthFieldFourth, setSelectedModalFourthFieldFourth] =
+    useState(optionsModalFourthFieldFourth[0]);
+
+  const [, setTags] = useState({
+    input: [],
+    input2: [],
+    input3: [],
+    input4: [],
+    input5: [],
+  });
+
+  useEffect(() => {
+    initializeTagify("tags-outside", [
+      "Educación y comunicación asertiva",
+      "Aptitud comunicativa",
+      "Organización",
+    ]);
+    initializeTagify("tags-outside-2", [
+      "Comunicación",
+      "MS Excel",
+      "Blackboard",
+    ]);
+    initializeTagify("tags-outside-3", [
+      "Comunicación",
+      "MS Excel",
+      "Blackboard",
+    ]);
+    initializeTagify("tags-outside-4", ["Canva", "MS Excel", "Blackboard"]);
+  }, []);
+
+  const initializeTagify = (inputName: string, whitelist: string[]) => {
+    const input = document.querySelector(
+      `input[name=${inputName}]`
+    ) as HTMLInputElement;
+
+    if (input) {
+      // @eslint-ignore
+      const tagifyInstance = new Tagify(input, {
+        whitelist,
+        dropdown: {
+          position: "input",
+          enabled: 0,
+        },
+      });
+
+      setTags((prevTags) => ({
+        ...prevTags,
+        [inputName]: tagifyInstance,
+      }));
+    }
+  };
   return (
     <Layout>
       <div>
@@ -112,21 +239,21 @@ const Cv = () => {
                                     >
                                       <g
                                         id="SVGRepo_bgCarrier"
-                                        stroke-width="0"
+                                        strokeWidth="0"
                                       ></g>
                                       <g
                                         id="SVGRepo_tracerCarrier"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                       ></g>
                                       <g id="SVGRepo_iconCarrier">
                                         {" "}
                                         <path
                                           d="M3 10H21M7 3V5M17 3V5M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z"
                                           stroke="#464c4d"
-                                          stroke-width="2"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
+                                          strokeWidth="2"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
                                         ></path>{" "}
                                       </g>
                                     </svg>
@@ -159,21 +286,21 @@ const Cv = () => {
                                     >
                                       <g
                                         id="SVGRepo_bgCarrier"
-                                        stroke-width="0"
+                                        strokeWidth="0"
                                       ></g>
                                       <g
                                         id="SVGRepo_tracerCarrier"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                       ></g>
                                       <g id="SVGRepo_iconCarrier">
                                         {" "}
                                         <path
                                           d="M3 10H21M7 3V5M17 3V5M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z"
                                           stroke="#464c4d"
-                                          stroke-width="2"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
+                                          strokeWidth="2"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
                                         ></path>{" "}
                                       </g>
                                     </svg>
@@ -183,15 +310,12 @@ const Cv = () => {
                             </div>
                           </div>
                           <div className="col-sm-12 col-md-6  mb-3">
-                            <div className="form-group">
-                              <label className="mb-1 fw-regular">
-                                Actividad de la empresa*:
-                              </label>
-                              <select className="form-select form-select-sm single-select select-bs">
-                                <option value="1">Educación</option>
-                                <option value="2">Otro</option>
-                              </select>
-                            </div>
+                            <DropDownSelect
+                              label="Actividad de la empresa*:"
+                              select={selectedModalOne}
+                              onSelect={setSelectedModalOne}
+                              options={optionsModalOne}
+                            />
                           </div>
                           <div className="col-12">
                             <div className="d-flex">
@@ -261,7 +385,7 @@ const Cv = () => {
                               </label>
                               <input
                                 name="tags-outside-2"
-                                className="tagify--outside form-control-sm form-control"
+                                className="tagify--outside "
                                 placeholder="Escribe tu aptitud"
                               />
                             </div>
@@ -411,47 +535,36 @@ const Cv = () => {
                       <div className="border rounded-3 p-4">
                         <div className="row">
                           <div className="col-sm-12 col-md-6  mb-4">
-                            <div className="form-group">
-                              <label className="mb-1 fw-regular">
-                                Formación Académica*:
-                              </label>
-                              <select className="form-select form-select-sm single-select select-bs">
-                                <option value="1">Maestría</option>
-                              </select>
-                            </div>
+                            <DropDownSelect
+                              label="Formación Académica*:"
+                              select={selectedModalSecondFieldOne}
+                              onSelect={setSelectedModalSecondOne}
+                              options={optionsModalSecondFieldOne}
+                            />
                           </div>
                           <div className="col-sm-12 col-md-6  mb-4">
-                            <div className="form-group">
-                              <label className="mb-1 fw-regular">
-                                Disciplina académica*:
-                              </label>
-                              <select className="form-select form-select-sm single-select select-bs">
-                                <option value="1">Educación</option>
-                              </select>
-                            </div>
+                            <DropDownSelect
+                              label="Disciplina académica*:"
+                              select={selectedModalSecondFieldTwo}
+                              onSelect={setSelectedModalSecondFieldTwo}
+                              options={optionsModalSecondFieldTwo}
+                            />
                           </div>
                           <div className="col-sm-12 col-md-6  mb-4">
-                            <div className="form-group">
-                              <label className="mb-1 fw-regular">
-                                País de formación*:
-                              </label>
-                              <select className="form-select form-select-sm single-select select-bs">
-                                <option value="1">Perú</option>
-                              </select>
-                            </div>
+                            <DropDownSelect
+                              label="País de formación*:"
+                              select={selectedModalSecondFieldThree}
+                              onSelect={setSelectedModalSecondFieldThree}
+                              options={optionsModalSecondFieldThree}
+                            />
                           </div>
                           <div className="col-sm-12 col-md-6  mb-4">
-                            <div className="form-group">
-                              <label className="mb-1 fw-regular">
-                                Institución*:
-                              </label>
-                              <select className="form-select form-select-sm single-select select-bs">
-                                <option value="1">
-                                  Universidad Peruana Cayetano Heredia
-                                </option>
-                                <option value="2">Otro</option>
-                              </select>
-                            </div>
+                            <DropDownSelect
+                              label="Institución*:"
+                              select={selectedModalSecondFieldFourth}
+                              onSelect={setSelectedModalSecondFieldFourth}
+                              options={optionsModalSecondFieldFourth}
+                            />
                           </div>
                           <div className="col-sm-12 col-md-6 mb-2">
                             <div className="form-group">
@@ -477,21 +590,21 @@ const Cv = () => {
                                     >
                                       <g
                                         id="SVGRepo_bgCarrier"
-                                        stroke-width="0"
+                                        strokeWidth="0"
                                       ></g>
                                       <g
                                         id="SVGRepo_tracerCarrier"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                       ></g>
                                       <g id="SVGRepo_iconCarrier">
                                         {" "}
                                         <path
                                           d="M3 10H21M7 3V5M17 3V5M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z"
                                           stroke="#464c4d"
-                                          stroke-width="2"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
+                                          strokeWidth="2"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
                                         ></path>{" "}
                                       </g>
                                     </svg>
@@ -524,21 +637,21 @@ const Cv = () => {
                                     >
                                       <g
                                         id="SVGRepo_bgCarrier"
-                                        stroke-width="0"
+                                        strokeWidth="0"
                                       ></g>
                                       <g
                                         id="SVGRepo_tracerCarrier"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                       ></g>
                                       <g id="SVGRepo_iconCarrier">
                                         {" "}
                                         <path
                                           d="M3 10H21M7 3V5M17 3V5M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z"
                                           stroke="#464c4d"
-                                          stroke-width="2"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
+                                          strokeWidth="2"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
                                         ></path>{" "}
                                       </g>
                                     </svg>
@@ -639,40 +752,28 @@ const Cv = () => {
                           </div>
                         </div>
                         <div className="col-sm-12 col-md-6  mb-4">
-                          <div className="form-group">
-                            <label className="mb-1 fw-regular">
-                              Institución*:
-                            </label>
-                            <select className="form-select form-select-sm single-select select-bs">
-                              <option value="1">Lindkedin</option>
-                              <option value="2">Otro</option>
-                            </select>
-                          </div>
+                          <DropDownSelect
+                            label="Institución*:"
+                            select={selectedModalThreeFieldOne}
+                            onSelect={setSelectedModalThreeFieldOne}
+                            options={optionsModalThreeFieldOne}
+                          />
                         </div>
                         <div className="col-sm-12 col-md-6  mb-4">
-                          <div className="form-group">
-                            <label className="mb-1 fw-regular">Tipo*:</label>
-                            <select className="form-select form-select-sm single-select select-bs">
-                              <option value="1">Certificación</option>
-                              <option value="2">Diplomado</option>
-                              <option value="3">Curso</option>
-
-                              <option value="4">Otro</option>
-                            </select>
-                          </div>
+                          <DropDownSelect
+                            label="Tipo*:"
+                            select={selectedModalThreeFieldTwo}
+                            onSelect={setSelectedModalThreeFieldTwo}
+                            options={optionsModalThreeFieldTwo}
+                          />
                         </div>
                         <div className="col-sm-12 col-md-6  mb-4">
-                          <div className="form-group">
-                            <label className="mb-1 fw-regular">
-                              Año de formación*:
-                            </label>
-                            <select className="form-select form-select-sm single-select select-bs">
-                              <option value="1">2020</option>
-                              <option value="2">2021</option>
-                              <option value="3">2022</option>
-                              <option value="4">2023</option>
-                            </select>
-                          </div>
+                          <DropDownSelect
+                            label="Año de formación*:"
+                            select={selectedModalThreeFieldThree}
+                            onSelect={setSelectedModalThreeFieldThree}
+                            options={optionsModalThreeFieldThree}
+                          />
                         </div>
                         <div className="col-sm-12 col-md-6 mb-3">
                           <div className="form-group">
@@ -680,7 +781,7 @@ const Cv = () => {
                             <input
                               name="tags-outside-3"
                               placeholder="Escribe tus aptitudes"
-                              className="form-control-sm form-control tagify--outside"
+                              className="tagify--outside"
                             />
                           </div>
                         </div>
@@ -780,51 +881,36 @@ const Cv = () => {
                       <div className="border rounded-3 p-4">
                         <div className="row">
                           <div className="col-sm-12 col-md-6  mb-4">
-                            <div className="form-group">
-                              <label className="mb-1 fw-regular">
-                                Idioma*:
-                              </label>
-                              <select className="form-select form-select-sm single-select select-bs">
-                                <option value="1">Inglés</option>
-                                <option value="2">Otro</option>
-                              </select>
-                            </div>
+                            <DropDownSelect
+                              label="Idioma*:"
+                              select={selectedModalFourthFieldOne}
+                              onSelect={setSelectedModalFourthFieldOne}
+                              options={optionsModalFourthFieldOne}
+                            />
                           </div>
                           <div className="col-sm-12 col-md-6  mb-4">
-                            <div className="form-group">
-                              <label className="mb-1 fw-regular">
-                                Nivel de escritura*:
-                              </label>
-                              <select className="form-select form-select-sm single-select select-bs">
-                                <option value="1">Básico</option>
-                                <option value="2">Intermedio</option>
-                                <option value="3">Avanzado</option>
-                              </select>
-                            </div>
+                            <DropDownSelect
+                              label="Nivel de escritura*:"
+                              select={selectedModalFourthFieldTwo}
+                              onSelect={setSelectedModalFourthFieldTwo}
+                              options={optionsModalFourthFieldTwo}
+                            />
                           </div>
                           <div className="col-sm-12 col-md-6  mb-4">
-                            <div className="form-group">
-                              <label className="mb-1 fw-regular">
-                                Nivel de oralidad*:
-                              </label>
-                              <select className="form-select form-select-sm single-select select-bs">
-                                <option value="1">Básico</option>
-                                <option value="2">Intermedio</option>
-                                <option value="3">Avanzado</option>
-                              </select>
-                            </div>
+                            <DropDownSelect
+                              label="Nivel de oralidad*:"
+                              select={selectedModalFourthFieldThree}
+                              onSelect={setSelectedModalFourthFieldThree}
+                              options={optionsModalFourthFieldThree}
+                            />
                           </div>
                           <div className="col-sm-12 col-md-6  mb-4">
-                            <div className="form-group">
-                              <label className="mb-1 fw-regular">
-                                Nivel de lectura*:
-                              </label>
-                              <select className="form-select form-select-sm single-select select-bs">
-                                <option value="1">Básico</option>
-                                <option value="2">Intermedio</option>
-                                <option value="3">Avanzado</option>
-                              </select>
-                            </div>
+                            <DropDownSelect
+                              label="Nivel de lectura*:"
+                              select={selectedModalFourthFieldFourth}
+                              onSelect={setSelectedModalFourthFieldFourth}
+                              options={optionsModalFourthFieldFourth}
+                            />
                           </div>
                         </div>
                       </div>
@@ -899,7 +985,7 @@ const Cv = () => {
                             <input
                               name="tags-outside-4"
                               placeholder="Escribe la herramienta digital"
-                              className="form-control-sm form-control tagify--outside"
+                              className="tagify--outside"
                             />
                           </div>
                         </div>
@@ -956,7 +1042,7 @@ const Cv = () => {
                             <input
                               name="tags-outside"
                               placeholder="Escribe tu aptitud"
-                              className="form-control-sm form-control tagify--outside"
+                              className="tagify--outside"
                             />
                           </div>
                         </div>

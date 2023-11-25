@@ -1,7 +1,7 @@
 import logoWhite from "@assets/img/logo-blanco.png";
 import avatarNeutro from "@assets/img/avatar-neutro.png";
 import { useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { ROUTES } from "routes/utils";
 
 const Sidebar: React.FC = () => {
