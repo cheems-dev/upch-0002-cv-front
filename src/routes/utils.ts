@@ -1,4 +1,4 @@
-export const ROUTES = {
+const ROUTES = {
   public: {},
   private: {
     home: "/",
@@ -8,3 +8,5 @@ export const ROUTES = {
     viewCV: "/ver-cv",
   },
 };
+
+export default ROUTES;

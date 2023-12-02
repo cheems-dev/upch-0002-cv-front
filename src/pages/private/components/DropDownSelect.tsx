@@ -21,9 +21,10 @@ const DropDownSelect: React.FC<Props> = (props) => {
     <Form.Group className="form-group">
       <Form.Label className="mb-1 fw-regular">{label}</Form.Label>
       <Dropdown
+        className="dropdown js-bs-select-dropdown selectPortal"
         onSelect={(eventKey) => {
           const numericKey = parseInt(eventKey as string, 10);
-          if (!isNaN(numericKey)) {
+          if (!Number.isNaN(numericKey)) {
             onSelect(options[numericKey]);
           }
         }}

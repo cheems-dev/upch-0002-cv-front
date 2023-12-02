@@ -1,18 +1,19 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import LogoImg from "@assets/img/logo.png";
 import HomeIcon from "@components/icons/HomeIcon";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ROUTES } from "routes/utils";
+import ROUTES from "routes/utils";
 
 const Header: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [openMobile, setOpenMobile] = useState(false);
   return (
-    <div className={`header`}>
+    <div className="header">
       <nav className="navbar navbar-light navbar-expand-md bg-white justify-content-center">
         <div className="container">
           <a href="/" className="navbar-brand d-flex w-50 me-auto">
-            <img src={LogoImg} />
+            <img src={LogoImg} alt="" />
           </a>
 
           <button
@@ -23,7 +24,7 @@ const Header: React.FC = () => {
             onClick={() => setOpenMobile(!openMobile)}
             aria-expanded={openMobile ? "true" : "false"}
           >
-            <span className="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon" />
           </button>
 
           <div
@@ -46,14 +47,14 @@ const Header: React.FC = () => {
               </li>
               <li className="nav-item fourth notas-option me-3">
                 <Link className="nav-link" to={ROUTES.private.cv}>
-                  <i className="far fa-pencil fs-sm me-1 text-upch"></i>
+                  <i className="far fa-pencil fs-sm me-1 text-upch" />
                   Editar mi CV
                 </Link>
               </li>
               <li className="nav-item d-block d-sm-block d-md-none fourth me-3">
                 <Link className="nav-link fs-sm " to={ROUTES.private.people}>
                   {" "}
-                  <i className="far fa-user fs-sm me-1 text-upch "></i>
+                  <i className="far fa-user fs-sm me-1 text-upch " />
                   Mi Equipo
                 </Link>
               </li>
@@ -94,7 +95,6 @@ const Header: React.FC = () => {
                     <span>MM</span>
                   </div>
                 </a>
-
                 <ul
                   className={`dropdown-menu dropdown-menu-right user-display${
                     open ? " show" : ""
@@ -104,7 +104,7 @@ const Header: React.FC = () => {
                 >
                   <li>
                     <a href="#" className="dropdown-item fs-sm ">
-                      <i className="far fa-envelope me-2"></i>{" "}
+                      <i className="far fa-envelope me-2" />{" "}
                       maria.miniza@upch.pe
                     </a>
                   </li>
@@ -114,7 +114,7 @@ const Header: React.FC = () => {
                       to={ROUTES.private.cv}
                     >
                       {" "}
-                      <i className="far fa-user fs-sm me-2 "></i>
+                      <i className="far fa-user fs-sm me-2 " />
                       Mi Perfil
                     </Link>
                   </li>

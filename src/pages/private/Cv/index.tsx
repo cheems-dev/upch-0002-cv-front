@@ -1,5 +1,8 @@
-import { CSSProperties, useEffect, useState } from "react";
-import { Accordion, DropDownSelect, Layout, ProfileCard } from "../components";
+import { CSSProperties, useCallback, useRef, useState } from "react";
+import Tagify, { BaseTagData } from "@yaireo/tagify";
+import Tags, { TagifyTagsReactProps } from "@yaireo/tagify/dist/react.tagify";
+import DatePicker from "react-datepicker";
+
 import imgLogo from "@assets/img/profile.png";
 import imgLogoUpchRojo from "@assets/img/logo_upchrojo.png";
 import imgLogoUsil from "@assets/img/logo_usil.png";
@@ -9,14 +12,21 @@ import {
   BarChartIcon,
   EducationIcon,
   LoadingIcon,
+  PeopleIcon,
   WorkIcon,
   WorldIcon,
 } from "@components/index";
-import DatePicker from "react-datepicker";
+import {
+  Accordion,
+  CustomModal,
+  DropDownSelect,
+  Layout,
+  ProfileCard,
+} from "../components";
 
 import "react-datepicker/dist/react-datepicker.css";
+
 import { Option } from "../types/options.types";
-import Tagify from "@yaireo/tagify";
 
 const containerStyles = {
   maxWidth: "98%",
@@ -76,11 +86,12 @@ const optionsModalFourthFieldFourth = [
 ];
 
 const Cv = () => {
+  const [openEditModal, setOpenEditModal] = useState(false);
   /* TODO: cambia el useState para los diferentes dataPicker */
   const [startDate, setStartDate] = useState(new Date());
   const [selectedModalOne, setSelectedModalOne] = useState(optionsModalOne[0]);
   const [selectedModalSecondFieldOne, setSelectedModalSecondOne] = useState(
-    optionsModalSecondFieldOne[0]
+    optionsModalSecondFieldOne[0],
   );
   const [selectedModalSecondFieldTwo, setSelectedModalSecondFieldTwo] =
     useState(optionsModalSecondFieldTwo[0]);
@@ -90,10 +101,10 @@ const Cv = () => {
     useState(optionsModalSecondFieldFourth[0]);
 
   const [selectedModalThreeFieldOne, setSelectedModalThreeFieldOne] = useState(
-    optionsModalThreeFieldOne[0]
+    optionsModalThreeFieldOne[0],
   );
   const [selectedModalThreeFieldTwo, setSelectedModalThreeFieldTwo] = useState(
-    optionsModalThreeFieldTwo[0]
+    optionsModalThreeFieldTwo[0],
   );
   const [selectedModalThreeFieldThree, setSelectedModalThreeFieldThree] =
     useState(optionsModalThreeFieldThree[0]);
@@ -107,67 +118,87 @@ const Cv = () => {
   const [selectedModalFourthFieldFourth, setSelectedModalFourthFieldFourth] =
     useState(optionsModalFourthFieldFourth[0]);
 
-  const [, setTags] = useState({
-    input: [],
-    input2: [],
-    input3: [],
-    input4: [],
-    input5: [],
-  });
+  const tagifyRef01 = useRef<Tagify<BaseTagData>>({} as Tagify<BaseTagData>);
+  const tagifyRef02 = useRef<Tagify<BaseTagData>>({} as Tagify<BaseTagData>);
+  const tagifyRef03 = useRef<Tagify<BaseTagData>>({} as Tagify<BaseTagData>);
+  const tagifyRef04 = useRef<Tagify<BaseTagData>>({} as Tagify<BaseTagData>);
 
-  useEffect(() => {
-    initializeTagify("tags-outside", [
+  const tagifyProps: TagifyTagsReactProps<BaseTagData> = {
+    loading: false,
+  };
+
+  const settings01 = {
+    // Configuración de Tagify
+    dropdown: {
+      enabled: 0,
+    },
+    whitelist: [
       "Educación y comunicación asertiva",
       "Aptitud comunicativa",
       "Organización",
-    ]);
-    initializeTagify("tags-outside-2", [
-      "Comunicación",
-      "MS Excel",
-      "Blackboard",
-    ]);
-    initializeTagify("tags-outside-3", [
-      "Comunicación",
-      "MS Excel",
-      "Blackboard",
-    ]);
-    initializeTagify("tags-outside-4", ["Canva", "MS Excel", "Blackboard"]);
-  }, []);
-
-  const initializeTagify = (inputName: string, whitelist: string[]) => {
-    const input = document.querySelector(
-      `input[name=${inputName}]`
-    ) as HTMLInputElement;
-
-    if (input) {
-      // @eslint-ignore
-      const tagifyInstance = new Tagify(input, {
-        whitelist,
-        dropdown: {
-          position: "input",
-          enabled: 0,
-        },
-      });
-
-      setTags((prevTags) => ({
-        ...prevTags,
-        [inputName]: tagifyInstance,
-      }));
-    }
+    ],
   };
+
+  const settings02 = {
+    // Configuración de Tagify
+    dropdown: {
+      enabled: 0,
+    },
+    whitelist: ["Comunicación", "MS Excel", "Blackboard"],
+  };
+
+  const settings03 = {
+    // Configuración de Tagify
+    dropdown: {
+      enabled: 0,
+    },
+    whitelist: ["Comunicación", "MS Excel", "Blackboard"],
+  };
+  const settings04 = {
+    // Configuración de Tagify
+    dropdown: {
+      enabled: 0,
+    },
+    whitelist: ["Canva", "MS Excel", "Blackboard"],
+  };
+  const tagifyRef05 = useRef<Tagify<BaseTagData>>({} as Tagify<BaseTagData>);
+  const settings05 = {
+    // Configuración de Tagify
+    dropdown: {
+      enabled: 0,
+    },
+    whitelist: ["Compensaciones y desempeño", "Dirección de desarrollo Humano"],
+  };
+  const onChange = useCallback(
+    (e: {
+      detail: {
+        tagify: Tagify<BaseTagData>;
+        value: string;
+      };
+    }) => {
+      console.log(
+        "CHANGED:",
+        e.detail.tagify.value,
+        e.detail.tagify.getCleanValue(),
+        e.detail.value,
+      );
+    },
+    [],
+  );
   return (
     <Layout>
       <div>
         <ProfileCard
           image={imgLogo}
-          name="Hector Cantaro Segura"
+          name="Hector Cantaro Segura  "
           job="Coordinador academico"
           teams="Ecosistema académico"
           dni="79466450"
           email="hector.segura@gmail.com"
           phone="+51 963 113 582"
           address="  Jr. Alfonso Ugarte 376, San Martín de Porres 15102"
-          edit={true}
+          edit
+          setOpenModal={() => setOpenEditModal(!openEditModal)}
         />
 
         <div className="container" style={containerStyles}>
@@ -240,12 +271,12 @@ const Cv = () => {
                                       <g
                                         id="SVGRepo_bgCarrier"
                                         strokeWidth="0"
-                                      ></g>
+                                      />
                                       <g
                                         id="SVGRepo_tracerCarrier"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
-                                      ></g>
+                                      />
                                       <g id="SVGRepo_iconCarrier">
                                         {" "}
                                         <path
@@ -254,7 +285,7 @@ const Cv = () => {
                                           strokeWidth="2"
                                           strokeLinecap="round"
                                           strokeLinejoin="round"
-                                        ></path>{" "}
+                                        />{" "}
                                       </g>
                                     </svg>
                                   }
@@ -287,12 +318,12 @@ const Cv = () => {
                                       <g
                                         id="SVGRepo_bgCarrier"
                                         strokeWidth="0"
-                                      ></g>
+                                      />
                                       <g
                                         id="SVGRepo_tracerCarrier"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
-                                      ></g>
+                                      />
                                       <g id="SVGRepo_iconCarrier">
                                         {" "}
                                         <path
@@ -301,7 +332,7 @@ const Cv = () => {
                                           strokeWidth="2"
                                           strokeLinecap="round"
                                           strokeLinejoin="round"
-                                        ></path>{" "}
+                                        />{" "}
                                       </g>
                                     </svg>
                                   }
@@ -358,8 +389,8 @@ const Cv = () => {
                                 className="form-control form-control-sm"
                                 rows={3}
                                 cols={50}
-                                defaultValue={"Ingresar descripción"}
-                              ></textarea>
+                                defaultValue="Ingresar descripción"
+                              />
                             </div>
                           </div>
                           <div className="col-sm-12 col-md-12 mb-3">
@@ -373,8 +404,8 @@ const Cv = () => {
                                 className="form-control form-control-sm"
                                 rows={3}
                                 cols={50}
-                                defaultValue={"Ingresar descripción"}
-                              ></textarea>
+                                defaultValue="Ingresar descripción"
+                              />
                             </div>
                           </div>
 
@@ -383,10 +414,12 @@ const Cv = () => {
                               <label className="mb-1 fw-regular">
                                 Aptitudes
                               </label>
-                              <input
-                                name="tags-outside-2"
-                                className="tagify--outside "
-                                placeholder="Escribe tu aptitud"
+                              <Tags
+                                tagifyRef={tagifyRef02}
+                                settings={settings02}
+                                {...tagifyProps}
+                                /*  onChange={onChange} */
+                                className="tagify--outside border-0"
                               />
                             </div>
                           </div>
@@ -401,8 +434,8 @@ const Cv = () => {
                         className="btn btn-outline-danger btn-sm text-center px-4"
                         data-bs-dismiss="modal"
                       >
-                        <i className="bi bi-trash3 me-1"></i>Eliminar
-                        experiencia
+                        <i className="bi bi-trash3 me-1" />
+                        Eliminar experiencia
                       </button>
                       <button
                         type="button"
@@ -416,7 +449,7 @@ const Cv = () => {
                 >
                   <div className="d-flex flex-wrap w-100 justify-content-start pe-3 border-bottom py-4 mb-3">
                     <div className="d-flex align-items-start me-3">
-                      <img src={imgLogoUpchRojo} style={imgStyles} />
+                      <img src={imgLogoUpchRojo} style={imgStyles} alt="" />
                     </div>
                     <div className="title-width ">
                       <h5 className="fw-medium">
@@ -427,8 +460,11 @@ const Cv = () => {
                       </small>
                     </div>
                     <div className="">
-                      <button className="btn btn-sm btn-opciones me-3">
-                        <i className="bi bi-pencil text-upch me-1"></i>
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-opciones me-3"
+                      >
+                        <i className="bi bi-pencil text-upch me-1" />
                         Editar
                       </button>
                     </div>
@@ -485,7 +521,7 @@ const Cv = () => {
 
                   <div className="d-flex flex-wrap w-100 justify-content-start pe-3  py-4 mb-3">
                     <div className="d-flex align-items-start me-3">
-                      <img src={imgLogoUsil} style={imgStyles} />
+                      <img src={imgLogoUsil} style={imgStyles} alt="" />
                     </div>
                     <div className="title-width">
                       <h5 className="fw-medium">Docente</h5>
@@ -511,8 +547,11 @@ const Cv = () => {
                       </div>
                     </div>
                     <div className="">
-                      <button className="btn btn-sm btn-opciones me-3">
-                        <i className="bi bi-pencil text-upch me-1"></i>
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-opciones me-3"
+                      >
+                        <i className="bi bi-pencil text-upch me-1" />
                         Editar
                       </button>
                     </div>
@@ -591,12 +630,12 @@ const Cv = () => {
                                       <g
                                         id="SVGRepo_bgCarrier"
                                         strokeWidth="0"
-                                      ></g>
+                                      />
                                       <g
                                         id="SVGRepo_tracerCarrier"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
-                                      ></g>
+                                      />
                                       <g id="SVGRepo_iconCarrier">
                                         {" "}
                                         <path
@@ -605,7 +644,7 @@ const Cv = () => {
                                           strokeWidth="2"
                                           strokeLinecap="round"
                                           strokeLinejoin="round"
-                                        ></path>{" "}
+                                        />{" "}
                                       </g>
                                     </svg>
                                   }
@@ -638,12 +677,12 @@ const Cv = () => {
                                       <g
                                         id="SVGRepo_bgCarrier"
                                         strokeWidth="0"
-                                      ></g>
+                                      />
                                       <g
                                         id="SVGRepo_tracerCarrier"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
-                                      ></g>
+                                      />
                                       <g id="SVGRepo_iconCarrier">
                                         {" "}
                                         <path
@@ -652,7 +691,7 @@ const Cv = () => {
                                           strokeWidth="2"
                                           strokeLinecap="round"
                                           strokeLinejoin="round"
-                                        ></path>{" "}
+                                        />{" "}
                                       </g>
                                     </svg>
                                   }
@@ -671,7 +710,8 @@ const Cv = () => {
                         className="btn btn-outline-danger btn-sm text-center px-4"
                         data-bs-dismiss="modal"
                       >
-                        <i className="bi bi-trash3 me-1"></i>Eliminar formación
+                        <i className="bi bi-trash3 me-1" />
+                        Eliminar formación
                       </button>
                       <button
                         type="button"
@@ -685,7 +725,7 @@ const Cv = () => {
                 >
                   <div className="d-flex flex-wrap w-100 justify-content-start pe-3 border-bottom py-4 mb-3">
                     <div className="d-flex align-items-start me-3">
-                      <img src={imgLogoUpchRojo} style={imgStyles} />
+                      <img src={imgLogoUpchRojo} style={imgStyles} alt="" />
                     </div>
                     <div className="title-width">
                       <h5 className="fw-medium">
@@ -702,15 +742,18 @@ const Cv = () => {
                       </p>
                     </div>
                     <div className="">
-                      <button className="btn btn-sm btn-opciones me-3">
-                        <i className="bi bi-pencil text-upch me-1"></i>
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-opciones me-3"
+                      >
+                        <i className="bi bi-pencil text-upch me-1" />
                         Editar
                       </button>
                     </div>
                   </div>
                   <div className="d-flex flex-wrap w-100 justify-content-start pe-3  py-4 mb-3">
                     <div className="d-flex align-items-start me-3">
-                      <img src={imgLogoUsil} style={imgStyles} />
+                      <img src={imgLogoUsil} style={imgStyles} alt="" />
                     </div>
                     <div className="title-width">
                       <h5 className="fw-medium">
@@ -725,8 +768,11 @@ const Cv = () => {
                       </p>
                     </div>
                     <div className="">
-                      <button className="btn btn-sm btn-opciones me-3">
-                        <i className="bi bi-pencil text-upch me-1"></i>
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-opciones me-3"
+                      >
+                        <i className="bi bi-pencil text-upch me-1" />
                         Editar
                       </button>
                     </div>
@@ -740,53 +786,52 @@ const Cv = () => {
                   icon={<BadgeIcon />}
                   titleModal="Datos de la certificación, diplomado y/o otros"
                   modalBody={
-                    <>
-                      <div className="row">
-                        <div className="col-sm-12 col-md-6  mb-4">
-                          <div className="form-group">
-                            <label className="mb-1 fw-regular">Nombre*:</label>
-                            <input
-                              type="text"
-                              className="form-control form-control-sm"
-                            />
-                          </div>
-                        </div>
-                        <div className="col-sm-12 col-md-6  mb-4">
-                          <DropDownSelect
-                            label="Institución*:"
-                            select={selectedModalThreeFieldOne}
-                            onSelect={setSelectedModalThreeFieldOne}
-                            options={optionsModalThreeFieldOne}
+                    <div className="row">
+                      <div className="col-sm-12 col-md-6  mb-4">
+                        <div className="form-group">
+                          <label className="mb-1 fw-regular">Nombre*:</label>
+                          <input
+                            type="text"
+                            className="form-control form-control-sm"
                           />
-                        </div>
-                        <div className="col-sm-12 col-md-6  mb-4">
-                          <DropDownSelect
-                            label="Tipo*:"
-                            select={selectedModalThreeFieldTwo}
-                            onSelect={setSelectedModalThreeFieldTwo}
-                            options={optionsModalThreeFieldTwo}
-                          />
-                        </div>
-                        <div className="col-sm-12 col-md-6  mb-4">
-                          <DropDownSelect
-                            label="Año de formación*:"
-                            select={selectedModalThreeFieldThree}
-                            onSelect={setSelectedModalThreeFieldThree}
-                            options={optionsModalThreeFieldThree}
-                          />
-                        </div>
-                        <div className="col-sm-12 col-md-6 mb-3">
-                          <div className="form-group">
-                            <label className="mb-1 fw-regular">Aptitudes</label>
-                            <input
-                              name="tags-outside-3"
-                              placeholder="Escribe tus aptitudes"
-                              className="tagify--outside"
-                            />
-                          </div>
                         </div>
                       </div>
-                    </>
+                      <div className="col-sm-12 col-md-6  mb-4">
+                        <DropDownSelect
+                          label="Institución*:"
+                          select={selectedModalThreeFieldOne}
+                          onSelect={setSelectedModalThreeFieldOne}
+                          options={optionsModalThreeFieldOne}
+                        />
+                      </div>
+                      <div className="col-sm-12 col-md-6  mb-4">
+                        <DropDownSelect
+                          label="Tipo*:"
+                          select={selectedModalThreeFieldTwo}
+                          onSelect={setSelectedModalThreeFieldTwo}
+                          options={optionsModalThreeFieldTwo}
+                        />
+                      </div>
+                      <div className="col-sm-12 col-md-6  mb-4">
+                        <DropDownSelect
+                          label="Año de formación*:"
+                          select={selectedModalThreeFieldThree}
+                          onSelect={setSelectedModalThreeFieldThree}
+                          options={optionsModalThreeFieldThree}
+                        />
+                      </div>
+                      <div className="col-sm-12 col-md-6 mb-3">
+                        <div className="form-group">
+                          <label className="mb-1 fw-regular">Aptitudes</label>
+                          <Tags
+                            tagifyRef={tagifyRef03}
+                            settings={settings03}
+                            {...tagifyProps}
+                            className="tagify--outside border-0"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   }
                   modalFooter={
                     <>
@@ -795,7 +840,8 @@ const Cv = () => {
                         className="btn btn-outline-danger btn-sm text-center px-4"
                         data-bs-dismiss="modal"
                       >
-                        <i className="bi bi-trash3 me-1"></i>Eliminar
+                        <i className="bi bi-trash3 me-1" />
+                        Eliminar
                       </button>
                       <button
                         type="button"
@@ -809,7 +855,7 @@ const Cv = () => {
                 >
                   <div className="d-flex flex-wrap w-100 justify-content-start pe-3 border-bottom py-4 mb-3">
                     <div className="d-flex align-items-start me-3">
-                      <img src={imgLogoIdkn} style={imgStyles} />
+                      <img src={imgLogoIdkn} style={imgStyles} alt="" />
                     </div>
                     <div className="title-width">
                       <h5 className="fw-medium">
@@ -828,15 +874,18 @@ const Cv = () => {
                       </div>
                     </div>
                     <div className="">
-                      <button className="btn btn-sm btn-opciones me-3">
-                        <i className="bi bi-pencil text-upch me-1"></i>
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-opciones me-3"
+                      >
+                        <i className="bi bi-pencil text-upch me-1" />
                         Editar
                       </button>
                     </div>
                   </div>
                   <div className="d-flex flex-wrap w-100 justify-content-start pe-3  py-4 mb-3">
                     <div className="d-flex align-items-start me-3">
-                      <img src={imgLogoIdkn} style={imgStyles} />
+                      <img src={imgLogoIdkn} style={imgStyles} alt="" />
                     </div>
                     <div className="title-width">
                       <h5 className="fw-medium">
@@ -858,8 +907,11 @@ const Cv = () => {
                       </div>
                     </div>
                     <div className="">
-                      <button className="btn btn-sm btn-opciones me-3">
-                        <i className="bi bi-pencil text-upch me-1"></i>
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-opciones me-3"
+                      >
+                        <i className="bi bi-pencil text-upch me-1" />
                         Editar
                       </button>
                     </div>
@@ -923,7 +975,8 @@ const Cv = () => {
                         className="btn btn-outline-danger btn-sm text-center px-4"
                         data-bs-dismiss="modal"
                       >
-                        <i className="bi bi-trash3 me-1"></i>Eliminar idioma
+                        <i className="bi bi-trash3 me-1" />
+                        Eliminar idioma
                       </button>
                       <button
                         type="button"
@@ -982,10 +1035,11 @@ const Cv = () => {
                               Nombre de la herramienta digital:
                             </label>
 
-                            <input
-                              name="tags-outside-4"
-                              placeholder="Escribe la herramienta digital"
-                              className="tagify--outside"
+                            <Tags
+                              tagifyRef={tagifyRef04}
+                              settings={settings04}
+                              {...tagifyProps}
+                              className="tagify--outside border-0"
                             />
                           </div>
                         </div>
@@ -1039,10 +1093,11 @@ const Cv = () => {
                             <label className="mb-1 fw-regular">
                               Nombre del conocimiento o aptitud:
                             </label>
-                            <input
-                              name="tags-outside"
-                              placeholder="Escribe tu aptitud"
-                              className="tagify--outside"
+                            <Tags
+                              tagifyRef={tagifyRef01}
+                              settings={settings01}
+                              {...tagifyProps}
+                              className="tagify--outside border-0"
                             />
                           </div>
                         </div>
@@ -1077,6 +1132,162 @@ const Cv = () => {
           </div>
         </div>
       </div>
+      <CustomModal
+        idButton="editarCV"
+        title="Editar datos personales"
+        icon={<PeopleIcon />}
+        onClose={() => setOpenEditModal(!openEditModal)}
+        show={openEditModal}
+        modalBody={
+          <>
+            <div className="row mt-2">
+              <div className="col-12">
+                <h6 className="fw-medium">Datos del Perfil</h6>
+              </div>
+            </div>
+            <div className="border rounded-3 p-4">
+              <div className="row">
+                <div className="col-sm-12 col-md-12 mb-3">
+                  <div className="htmlForm-group">
+                    <label className="mb-1 fw-regular">
+                      Descripción personal*
+                    </label>
+                    <textarea
+                      id="motivotext"
+                      name="motivotext"
+                      className="form-control form-control-sm"
+                      rows={3}
+                      cols={50}
+                      defaultValue=" Ingresar descripción"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row mt-4">
+              <div className="col-12">
+                <h6 className="fw-medium">Datos personales</h6>
+              </div>
+            </div>
+            <div className="border rounded-3 p-4">
+              <div className="row">
+                <div className="col-sm-12 col-md-4  mb-4">
+                  <div className="htmlForm-group">
+                    <label className="mb-1 fw-regular">
+                      Número de documento*:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control form-control-sm"
+                    />
+                  </div>
+                </div>
+                <div className="col-sm-12 col-md-4  mb-4">
+                  <div className="htmlForm-group">
+                    <label className="mb-1 fw-regular">Nombres*:</label>
+                    <input
+                      type="text"
+                      className="form-control form-control-sm"
+                    />
+                  </div>
+                </div>
+                <div className="col-sm-12 col-md-4  mb-4">
+                  <div className="htmlForm-group">
+                    <label className="mb-1 fw-regular">Apellidos*:</label>
+                    <input
+                      type="text"
+                      className="form-control form-control-sm"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row mt-4">
+              <div className="col-12">
+                <h6 className="fw-medium">Datos del puesto actual</h6>
+              </div>
+            </div>
+            <div className="border rounded-3 p-4">
+              <div className="row">
+                <div className="col-sm-12 col-md-6  mb-4">
+                  <div className="htmlForm-group">
+                    <label className="mb-1 fw-regular">
+                      Nombre del cargo*:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control form-control-sm"
+                    />
+                  </div>
+                </div>
+                <div className="col-sm-12 col-md-6  mb-4">
+                  <div className="htmlForm-group">
+                    <label className="mb-1 fw-regular">Equipos*:</label>
+                    <Tags
+                      tagifyRef={tagifyRef05}
+                      settings={settings05}
+                      {...tagifyProps}
+                      onChange={onChange}
+                      className="tagify--outside border-0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row mt-4">
+              <div className="col-12">
+                <h6 className="fw-medium">Datos de contacto</h6>
+              </div>
+            </div>
+            <div className="border rounded-3 p-4">
+              <div className="row">
+                <div className="col-sm-12 col-md-6  mb-4">
+                  <div className="htmlForm-group">
+                    <label className="mb-1 fw-regular">Correo personal*:</label>
+                    <input
+                      type="email"
+                      className="form-control form-control-sm"
+                    />
+                  </div>
+                </div>
+                <div className="col-sm-12 col-md-6  mb-4">
+                  <div className="htmlForm-group">
+                    <label className="mb-1 fw-regular">Celular*:</label>
+                    <input
+                      type="text"
+                      className="form-control form-control-sm"
+                    />
+                  </div>
+                </div>
+                <div className="col-sm-12 col-md-12  mb-4">
+                  <div className="htmlForm-group">
+                    <label className="mb-1 fw-regular">Domicilio*:</label>
+                    <textarea
+                      id="motivotext"
+                      name="motivotext"
+                      className="form-control form-control-sm"
+                      rows={3}
+                      cols={50}
+                      defaultValue="Escribe tu dirección"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        }
+        modalFooter={
+          <div className="mx-auto pb-3 mb-4">
+            <button
+              type="button"
+              className="btn btn-primary btn-sm text-center px-4"
+              data-bs-dismiss="modal"
+            >
+              Guardar cambios
+            </button>
+          </div>
+        }
+      />
     </Layout>
   );
 };

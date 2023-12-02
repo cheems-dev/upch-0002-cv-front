@@ -1,4 +1,6 @@
+/* eslint-disable react/require-default-props */
 import React, { ReactNode, useState } from "react";
+import { CustomModal } from ".";
 
 interface Props {
   id: string;
@@ -23,7 +25,7 @@ const Accordion: React.FC<Props> = (props) => {
     <>
       <div className="accordion-item mt-3 mb-3" id={id}>
         <h2 className="accordion-header">
-          <a
+          <button
             className={`accordion-button fw-medium text-decoration-none${
               open ? "" : " collapsed"
             }`}
@@ -44,18 +46,19 @@ const Accordion: React.FC<Props> = (props) => {
               {actions && (
                 <div className="flex-end me-3">
                   <button
+                    type="button"
                     className="btn btn-sm btn-outline-secondary me-3"
                     data-bs-toggle="modal"
                     data-bs-target={`#${idButton}`}
                     onClick={() => setOpenModal(!openModal)}
                   >
-                    <i className="bi bi-plus-circle text-upch me-1"></i>
+                    <i className="bi bi-plus-circle text-upch me-1" />
                     Nuevo
                   </button>
                 </div>
               )}
             </div>
-          </a>
+          </button>
         </h2>
         <div
           id={title.replace(/\s+/g, "-")}
@@ -65,41 +68,16 @@ const Accordion: React.FC<Props> = (props) => {
         </div>
       </div>
 
-      {titleModal && modalBody && modalFooter && (
-        <div
-          className={`modal fade ${openModal ? "show" : ""}`}
-          tabIndex={-1}
-          aria-hidden={!openModal}
-          id={idButton}
-          style={{ display: openModal ? "block" : "none" }}
-          role="dialog"
-          aria-labelledby={`${idButton}Label`}
-        >
-          <div className="modal-dialog modal-xl modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h6 className="modal-title" id={`${idButton}Label`}>
-                  {icon}
-                  {` ${titleModal}`}
-                </h6>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                  onClick={() => setOpenModal(!openModal)}
-                ></button>
-              </div>
-              <div className="modal-body px-4">{modalBody}</div>
-
-              <div className="modal-footer text-center">
-                <div className="d-flex justify-content-between w-100 gap-1">
-                  {modalFooter}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      {titleModal && modalBody && modalFooter && idButton && (
+        <CustomModal
+          title={titleModal}
+          show={openModal}
+          icon={icon}
+          modalBody={modalBody}
+          modalFooter={modalFooter}
+          idButton={idButton}
+          onClose={() => setOpenModal(!openModal)}
+        />
       )}
     </>
   );

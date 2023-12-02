@@ -1,4 +1,5 @@
 import React from "react";
+import { Modal } from "react-bootstrap";
 
 interface Props {
   show: boolean;
@@ -15,40 +16,27 @@ const CustomModal: React.FC<Props> = (props) => {
   const { show, onClose } = props;
 
   return (
-    <div
-      className={`modal fade ${show ? "show" : ""}`}
-      tabIndex={-1}
-      aria-hidden={!show}
-      id={idButton}
-      style={{ display: show ? "block" : "none" }}
-      role="dialog"
+    <Modal
+      show={show}
+      backdropClassName="modalGenerateCode"
+      backdrop="static"
+      keyboard={false}
+      centered
+      size="xl"
       aria-labelledby={`${idButton}Label`}
     >
-      <div className="modal-dialog modal-xl modal-dialog-centered">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h6 className="modal-title" id={`${idButton}Label`}>
-              {icon}
-              {` ${title}`}
-            </h6>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              onClick={onClose}
-            ></button>
-          </div>
-          <div className="modal-body px-4">{modalBody}</div>
+      <Modal.Header closeButton onClick={onClose}>
+        <Modal.Title>
+          <h6 className="modal-title" id={`${idButton}Label`}>
+            {icon}
+            {` ${title}`}
+          </h6>
+        </Modal.Title>
+      </Modal.Header>
 
-          <div className="modal-footer text-center">
-            <div className="d-flex justify-content-between w-100">
-              {modalFooter}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <Modal.Body className="px-4">{modalBody}</Modal.Body>
+      <Modal.Footer className="px-4 border-0">{modalFooter}</Modal.Footer>
+    </Modal>
   );
 };
 

@@ -1,14 +1,15 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import logoWhite from "@assets/img/logo-blanco.png";
 import avatarNeutro from "@assets/img/avatar-neutro.png";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { ROUTES } from "routes/utils";
+import ROUTES from "routes/utils";
 
 const Sidebar: React.FC = () => {
   useEffect(() => {
     const main = document.querySelector(".main");
     if (main) {
-      main.addEventListener("click", function () {
+      main.addEventListener("click", () => {
         const homeSelector = document.querySelector(".home");
         if (homeSelector) homeSelector.classList.add("short");
       });
@@ -16,12 +17,12 @@ const Sidebar: React.FC = () => {
     function showHover() {
       const li = document.querySelectorAll(".short .sidebar li a");
       if (li.length > 0) {
-        li.forEach(function (item) {
-          item.addEventListener("mouseover", function () {
+        li.forEach((item) => {
+          item.addEventListener("mouseover", () => {
             const text = item.querySelector(".text");
             if (text) text.classList.add("hover");
           });
-          item.addEventListener("mouseout", function () {
+          item.addEventListener("mouseout", () => {
             const text = item.querySelector(".text");
             if (text) text.classList.remove("hover");
           });
@@ -80,7 +81,7 @@ const Sidebar: React.FC = () => {
           </svg>
         </div>
       </div>
-      <div className="divider"></div>
+      <div className="divider" />
       <nav>
         <ul>
           <li>
@@ -203,7 +204,7 @@ const Sidebar: React.FC = () => {
         </div>
         <div className="logout">
           <a href="#">
-            <i className="bi bi-box-arrow-in-right"></i>
+            <i className="bi bi-box-arrow-in-right" />
           </a>
         </div>
       </div>

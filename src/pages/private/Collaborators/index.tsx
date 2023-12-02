@@ -108,9 +108,13 @@ const Collaborators = () => {
 
     return (
       <li className={className} key={page}>
-        <a className="page-link" href="#" onClick={() => handlePageClick(page)}>
+        <button
+          type="button"
+          className="page-link"
+          onClick={() => handlePageClick(page)}
+        >
           {page}
-        </a>
+        </button>
       </li>
     );
   };
@@ -122,7 +126,7 @@ const Collaborators = () => {
           <div className="col-12">
             <div className="opciones-title mt-4">
               <h4>Buscar de colaboradores</h4>
-              <div className="separator"></div>
+              <div className="separator" />
             </div>
 
             <div className="card shadow-sm">
@@ -175,7 +179,10 @@ const Collaborators = () => {
                     </div>
                   </div>
                   <div className="col-md-4 my-2">
-                    <button className="btn btn-sm btn-primary mt-4 px-5">
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-primary mt-4 px-5"
+                    >
                       Buscar
                     </button>
                   </div>
@@ -189,7 +196,7 @@ const Collaborators = () => {
           <div className="col-sm-12">
             <div className="opciones-title mt-4">
               <h4 className="">Listado de colaboradores</h4>
-              <div className="separator"></div>
+              <div className="separator" />
             </div>
           </div>
           {dataFake.map((data, index) => (
@@ -206,32 +213,32 @@ const Collaborators = () => {
         <nav className="panel-footer mt-4">
           <ul className="pagination flex-wrap justify-content-center">
             <li className="first disabled">
-              <a className="page-link" href="#">
+              <button type="button" className="page-link">
                 Primero
-              </a>
+              </button>
             </li>
             <li className="prev disabled">
-              <a className="page-link" href="#">
+              <button type="button" className="page-link">
                 «
-              </a>
+              </button>
             </li>
             {renderPaginationItem(1)}
             {renderPaginationItem(2)}
             {renderPaginationItem(3)}
             <li className="next">
-              <a className="page-link" href="#">
+              <button type="button" className="page-link">
                 »
-              </a>
+              </button>
             </li>
             <li className="last">
-              <a className="page-link" href="#">
+              <button type="button" className="page-link">
                 Último
-              </a>
+              </button>
             </li>
             <li className="pageNumbers">
-              <a className="page-link" href="#">
+              <button className="page-link" type="button">
                 Página {currentPage}/3
-              </a>
+              </button>
             </li>
           </ul>
         </nav>

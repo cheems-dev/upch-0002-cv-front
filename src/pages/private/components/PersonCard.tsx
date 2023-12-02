@@ -27,7 +27,7 @@ const PersonCard: React.FC<Props> = (props) => {
             <div className="ps-3">
               <h5 className="mb-0">{name}</h5>
               <span className="cargo-subtitle">
-                <i className="bi bi-file-person me-1 text-upch lh-1"></i>
+                <i className="bi bi-file-person me-1 text-upch lh-1" />
                 {job}
               </span>
             </div>
@@ -37,7 +37,7 @@ const PersonCard: React.FC<Props> = (props) => {
           <div className="info-description mb-3">
             <div className="d-flex">
               <p className="fw-medium">
-                <i className="bi bi-people-fill me-1 text-upch"></i> Equipos:{" "}
+                <i className="bi bi-people-fill me-1 text-upch" /> Equipos:{" "}
                 {teams.map((team, index) => (
                   <span
                     key={`${id}-${index}`}
@@ -51,11 +51,17 @@ const PersonCard: React.FC<Props> = (props) => {
           </div>
           <div className="buttons-item mb-3">
             <div className="d-flex mx-auto">
-              <button className="btn btn-sm btn-outline-danger px-4 me-3">
+              <button
+                type="button"
+                className="btn btn-sm btn-outline-danger px-4 me-3"
+              >
                 {" "}
-                <i className="bi bi-envelope pe-1"></i> Enviar correo
+                <i className="bi bi-envelope pe-1" /> Enviar correo
               </button>
-              <button className="btn btn-sm btn-primary px-4 w-50">
+              <button
+                type="button"
+                className="btn btn-sm btn-primary px-4 w-50"
+              >
                 Ver CV
               </button>
             </div>

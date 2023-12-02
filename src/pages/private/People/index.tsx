@@ -84,7 +84,7 @@ const People = () => {
           <div className="col-12">
             <div className="opciones-title mt-4">
               <h4>Buscar en mi equipo</h4>
-              <div className="separator"></div>
+              <div className="separator" />
             </div>
 
             <div className="card shadow-sm">
@@ -138,7 +138,10 @@ const People = () => {
                     </div>
                   </div>
                   <div className="col-md-4 my-2">
-                    <button className="btn btn-sm btn-primary mt-4 px-5">
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-primary mt-4 px-5"
+                    >
                       Buscar
                     </button>
                   </div>
@@ -152,7 +155,7 @@ const People = () => {
           <div className="col-sm-12">
             <div className="opciones-title mt-4">
               <h4 className="">Listado de mi equipo</h4>
-              <div className="separator"></div>
+              <div className="separator" />
             </div>
           </div>
           {dataFake.map((data, index) => (

@@ -1,7 +1,7 @@
 import { useId } from "react";
+import ROUTES from "routes/utils";
 import { CardProfile, Options } from "./components";
 import { Layout } from "..";
-import { ROUTES } from "routes/utils";
 
 const dataFake = [
   {

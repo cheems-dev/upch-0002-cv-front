@@ -1,6 +1,6 @@
 import Avatar from "@assets/img/avatar-neutro.png";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "routes/utils";
+import ROUTES from "routes/utils";
 
 const CardProfile = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const CardProfile = () => {
             <span className="text-uppercase badge-cargo mb-2">
               DIRECTOR DE DESARROLLO HUMANO
             </span>
-            <div className="w-100 border-top mt-4 pt-3"></div>
+            <div className="w-100 border-top mt-4 pt-3" />
             <div className="d-flex justify-content-between flex-wrap mx-auto px-4 text-center">
               <p className="text-uppercase mb-2 w-25 text-start">
                 <span className="text-upch me-1">
@@ -39,23 +39,24 @@ const CardProfile = () => {
                 09644380
               </p>
               <p className="mb-0 w-75 text-start ps-3">
-                <i className="bi bi-people-fill text-upch me-1"></i> Dirección
-                de desarrollo humano
+                <i className="bi bi-people-fill text-upch me-1" /> Dirección de
+                desarrollo humano
               </p>
               <p className="mb-0 w-25 text-start">
-                <i className="bi bi-telephone text-upch me-1"></i> 935 115 668
+                <i className="bi bi-telephone text-upch me-1" /> 935 115 668
               </p>
               <p className="mb-0 w-75 text-start ps-3">
-                <i className="bi bi-envelope text-upch me-1"></i>{" "}
+                <i className="bi bi-envelope text-upch me-1" />{" "}
                 maria.miniza@upch.pe
               </p>
               <p className="mb-0 w-100 text-start mt-2">
-                <i className="bi bi-geo-alt text-upch me-1"></i>Jr. Alfonso
-                Ugarte 376, San Martín de Porres 15102
+                <i className="bi bi-geo-alt text-upch me-1" />
+                Jr. Alfonso Ugarte 376, San Martín de Porres 15102
               </p>
             </div>
             <div className="mt-3 py-3">
               <button
+                type="button"
                 className="btn btn-sm btn-primary px-4"
                 onClick={() => navigate(ROUTES.private.viewCV)}
               >

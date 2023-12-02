@@ -39,7 +39,7 @@ const CustomModal: React.FC<Props> = (props) => {
               data-bs-dismiss="modal"
               aria-label="Close"
               onClick={onClose}
-            ></button>
+            />
           </div>
           <div className="modal-body px-4">
             {/* Contenido del cuerpo del modal, puedes agregar más contenido o personalizar según sea necesario */}

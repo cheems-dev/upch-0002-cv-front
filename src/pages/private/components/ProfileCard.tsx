@@ -1,14 +1,7 @@
 import { CameraIcon, UploadIcon } from "@components/index";
-import React, {
-  CSSProperties,
-  ChangeEvent,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { CSSProperties, ChangeEvent, useRef, useState } from "react";
+import "@yaireo/tagify/dist/tagify.css";
 import { CustomModal } from ".";
-import PeopleIcon from "@components/icons/PeopleIcon";
-import Tagify from "@yaireo/tagify";
 
 const imageStyles: CSSProperties = {
   height: "180px",
@@ -17,7 +10,6 @@ const imageStyles: CSSProperties = {
 };
 
 interface Props {
-  edit?: boolean;
   image: string;
   name: string;
   job: string;
@@ -26,13 +18,15 @@ interface Props {
   email: string;
   phone: string;
   address: string;
+  // eslint-disable-next-line react/require-default-props
+  setOpenModal?: () => void;
+  edit?: boolean;
 }
 
 const ProfileCard: React.FC<Props> = (props) => {
-  const { name, job, teams, dni, email, phone, address } = props;
-  const { image, edit = false } = props;
+  const { name, job, teams, dni, phone, email, address } = props;
+  const { image, edit, setOpenModal } = props;
 
-  const [openEditModal, setOpenEditModal] = useState(false);
   const [openUpPdf, setOpenUpPdf] = useState(false);
 
   const fileInputImageProfileRef = useRef<HTMLInputElement>(null);
@@ -54,38 +48,6 @@ const ProfileCard: React.FC<Props> = (props) => {
     }
   };
 
-  const [, setTags] = useState({
-    input5: [],
-  });
-
-  useEffect(() => {
-    initializeTagify("tags-outside-5", [
-      "Compensaciones y desempeño",
-      "Dirección de desarrollo Humano",
-    ]);
-  }, []);
-
-  const initializeTagify = (inputName: string, whitelist: string[]) => {
-    const input = document.querySelector(
-      `input[name=${inputName}]`
-    ) as HTMLInputElement;
-
-    if (input) {
-      const tagifyInstance = new Tagify(input, {
-        whitelist,
-        dropdown: {
-          position: "input",
-          enabled: 0,
-        },
-      });
-
-      setTags((prevTags) => ({
-        ...prevTags,
-        [inputName]: tagifyInstance,
-      }));
-    }
-  };
-
   return (
     <>
       <div className="content-profile banner-image w-100">
@@ -93,13 +55,14 @@ const ProfileCard: React.FC<Props> = (props) => {
           src="https://www.wallpapertip.com/wmimgs/49-494534_home-about-abstract-nature-urban-corporates-business-professional.jpg"
           style={imageStyles}
           className="profile-pic-2"
+          alt=""
         />
         {edit && (
           <div
             className="p-image btn-opciones"
             onClick={handleImageProfileClick}
           >
-            <i className="bi bi-pencil text-upch me-1 px-1 upload-button-2"></i>
+            <i className="bi bi-pencil text-upch me-1 px-1 upload-button-2" />
             <input
               ref={fileInputImageProfileRef}
               className="file-upload-2"
@@ -120,6 +83,7 @@ const ProfileCard: React.FC<Props> = (props) => {
                   <img
                     src={image}
                     className="rounded-circle shadow-sm my-3 profile-pic"
+                    alt=""
                   />
                   {edit && (
                     <div className="p-image" onClick={handleImageProfileClick}>
@@ -140,7 +104,7 @@ const ProfileCard: React.FC<Props> = (props) => {
               <div className="name-description ">
                 <h3>{name}</h3>
                 <h6 className="fw-medium">
-                  <i className="bi bi-file-person me-1"></i> {job}
+                  <i className="bi bi-file-person me-1" /> {job}
                 </h6>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
@@ -150,8 +114,7 @@ const ProfileCard: React.FC<Props> = (props) => {
               <div className="info-description ">
                 <div className="d-flex">
                   <p className="fw-medium">
-                    <i className="bi bi-people-fill me-1 text-upch"></i>{" "}
-                    Equipos:{" "}
+                    <i className="bi bi-people-fill me-1 text-upch" /> Equipos:{" "}
                     <span className="bg-light text-dark fw-regular rounded-3 ms-2 py-1 px-2">
                       {teams}
                     </span>
@@ -163,20 +126,23 @@ const ProfileCard: React.FC<Props> = (props) => {
               {edit && (
                 <div className="d-flex justify-content-end">
                   <button
+                    type="button"
                     className="btn btn-sm btn-outline-secondary me-3"
                     data-bs-toggle="modal"
                     data-bs-target="#editarDatos"
-                    onClick={() => setOpenEditModal(!openEditModal)}
+                    onClick={setOpenModal}
                   >
-                    <i className="bi bi-pencil text-upch me-1"></i>Editar
+                    <i className="bi bi-pencil text-upch me-1" />
+                    Editar
                   </button>
                   <button
+                    type="button"
                     className="btn btn-sm btn-dark"
                     data-bs-toggle="modal"
                     data-bs-target="#editarCV"
                     onClick={() => setOpenUpPdf(!openUpPdf)}
                   >
-                    <i className="bi bi-cloud-upload me-1"></i> Subir CV
+                    <i className="bi bi-cloud-upload me-1" /> Subir CV
                   </button>
                 </div>
               )}
@@ -207,20 +173,21 @@ const ProfileCard: React.FC<Props> = (props) => {
                 </div>
                 <div>
                   <p className="mb-1">
-                    <i className="bi bi-envelope text-upch me-1"></i>Correo
-                    personal:
+                    <i className="bi bi-envelope text-upch me-1" />
+                    Correo personal:
                   </p>
                   <p className="mb-1">{email}</p>
                 </div>
                 <div>
                   <p className="mb-1">
-                    <i className="bi bi-telephone text-upch me-1"></i>Celular:
+                    <i className="bi bi-telephone text-upch me-1" />
+                    Celular:
                   </p>
                   <p className="mb-1">{phone}</p>
                 </div>
                 <div>
                   <p className="mb-1">
-                    <i className="bi bi-geo-alt text-upch me-1"></i> Dirección:
+                    <i className="bi bi-geo-alt text-upch me-1" /> Dirección:
                   </p>
                   <p className="mb-1">{address}</p>
                 </div>
@@ -229,161 +196,6 @@ const ProfileCard: React.FC<Props> = (props) => {
           </div>
         </div>
       </div>
-
-      <CustomModal
-        idButton="editarCV"
-        title="Editar datos personales"
-        icon={<PeopleIcon />}
-        onClose={() => setOpenEditModal(!openEditModal)}
-        show={openEditModal}
-        modalBody={
-          <>
-            <div className="row mt-2">
-              <div className="col-12">
-                <h6 className="fw-medium">Datos del Perfil</h6>
-              </div>
-            </div>
-            <div className="border rounded-3 p-4">
-              <div className="row">
-                <div className="col-sm-12 col-md-12 mb-3">
-                  <div className="htmlForm-group">
-                    <label className="mb-1 fw-regular">
-                      Descripción personal*
-                    </label>
-                    <textarea
-                      id="motivotext"
-                      name="motivotext"
-                      className="form-control form-control-sm"
-                      rows={3}
-                      cols={50}
-                      defaultValue={" Ingresar descripción"}
-                    ></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row mt-4">
-              <div className="col-12">
-                <h6 className="fw-medium">Datos personales</h6>
-              </div>
-            </div>
-            <div className="border rounded-3 p-4">
-              <div className="row">
-                <div className="col-sm-12 col-md-4  mb-4">
-                  <div className="htmlForm-group">
-                    <label className="mb-1 fw-regular">
-                      Número de documento*:
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control form-control-sm"
-                    />
-                  </div>
-                </div>
-                <div className="col-sm-12 col-md-4  mb-4">
-                  <div className="htmlForm-group">
-                    <label className="mb-1 fw-regular">Nombres*:</label>
-                    <input
-                      type="text"
-                      className="form-control form-control-sm"
-                    />
-                  </div>
-                </div>
-                <div className="col-sm-12 col-md-4  mb-4">
-                  <div className="htmlForm-group">
-                    <label className="mb-1 fw-regular">Apellidos*:</label>
-                    <input
-                      type="text"
-                      className="form-control form-control-sm"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row mt-4">
-              <div className="col-12">
-                <h6 className="fw-medium">Datos del puesto actual</h6>
-              </div>
-            </div>
-            <div className="border rounded-3 p-4">
-              <div className="row">
-                <div className="col-sm-12 col-md-6  mb-4">
-                  <div className="htmlForm-group">
-                    <label className="mb-1 fw-regular">
-                      Nombre del cargo*:
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control form-control-sm"
-                    />
-                  </div>
-                </div>
-                <div className="col-sm-12 col-md-6  mb-4">
-                  <div className="htmlForm-group">
-                    <label className="mb-1 fw-regular">Equipos*:</label>
-                    <input
-                      name="tags-outside-5"
-                      placeholder="Escribe la herramienta digital"
-                      className="tagify--outside"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row mt-4">
-              <div className="col-12">
-                <h6 className="fw-medium">Datos de contacto</h6>
-              </div>
-            </div>
-            <div className="border rounded-3 p-4">
-              <div className="row">
-                <div className="col-sm-12 col-md-6  mb-4">
-                  <div className="htmlForm-group">
-                    <label className="mb-1 fw-regular">Correo personal*:</label>
-                    <input
-                      type="email"
-                      className="form-control form-control-sm"
-                    />
-                  </div>
-                </div>
-                <div className="col-sm-12 col-md-6  mb-4">
-                  <div className="htmlForm-group">
-                    <label className="mb-1 fw-regular">Celular*:</label>
-                    <input
-                      type="text"
-                      className="form-control form-control-sm"
-                    />
-                  </div>
-                </div>
-                <div className="col-sm-12 col-md-12  mb-4">
-                  <div className="htmlForm-group">
-                    <label className="mb-1 fw-regular">Domicilio*:</label>
-                    <textarea
-                      id="motivotext"
-                      name="motivotext"
-                      className="form-control form-control-sm"
-                      rows={3}
-                      cols={50}
-                      defaultValue="Escribe tu dirección"
-                    ></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </>
-        }
-        modalFooter={
-          <div className="mx-auto pb-3 mb-4">
-            <button
-              type="button"
-              className="btn btn-primary btn-sm text-center px-4"
-              data-bs-dismiss="modal"
-            >
-              Guardar cambios
-            </button>
-          </div>
-        }
-      />
 
       <CustomModal
         idButton="editarCV"
@@ -410,7 +222,7 @@ const ProfileCard: React.FC<Props> = (props) => {
                         htmlFor="inputGroupFile"
                       >
                         {" "}
-                        <i className="bi bi-cloud-arrow-up me-1"></i> Subir CV
+                        <i className="bi bi-cloud-arrow-up me-1" /> Subir CV
                       </label>
                     </div>
                   </div>
@@ -430,7 +242,7 @@ const ProfileCard: React.FC<Props> = (props) => {
                     aria-controls="nav-home"
                     aria-selected="true"
                   >
-                    <i className="bi bi-cloud-upload text-upch me-1"></i> Subir
+                    <i className="bi bi-cloud-upload text-upch me-1" /> Subir
                     otros documentos
                   </button>
                 </div>
@@ -476,7 +288,7 @@ const ProfileCard: React.FC<Props> = (props) => {
                           type="button"
                           id="button-addon2"
                         >
-                          <i className="bi bi-x-circle"></i>
+                          <i className="bi bi-x-circle" />
                         </button>
                       </div>
 
@@ -491,7 +303,7 @@ const ProfileCard: React.FC<Props> = (props) => {
                           type="button"
                           id="button-addon2"
                         >
-                          <i className="bi bi-x-circle"></i>
+                          <i className="bi bi-x-circle" />
                         </button>
                       </div>
                     </div>
@@ -518,3 +330,7 @@ const ProfileCard: React.FC<Props> = (props) => {
 };
 
 export default ProfileCard;
+
+ProfileCard.defaultProps = {
+  edit: false,
+};

@@ -1,4 +1,4 @@
-export const constants = {
+const constants = {
   ROUTES: {
     PRIVATE: {
       home: "/" /* Terminado */,
@@ -12,3 +12,5 @@ export const constants = {
     PUBLIC: {},
   },
 };
+
+export default constants;

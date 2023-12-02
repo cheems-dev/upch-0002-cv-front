@@ -1,5 +1,4 @@
 import { CSSProperties } from "react";
-import { Accordion, Layout, ProfileCard } from "..";
 import imgLogo from "@assets/img/profile.png";
 import imgLogoUpchRojo from "@assets/img/logo_upchrojo.png";
 import imgLogoUsil from "@assets/img/logo_usil.png";
@@ -12,6 +11,7 @@ import {
   WorkIcon,
   WorldIcon,
 } from "@components/index";
+import { Accordion, Layout, ProfileCard } from "..";
 
 const containerStyles = {
   maxWidth: "98%",
@@ -52,7 +52,7 @@ const ViewCv = () => {
                 >
                   <div className="d-flex flex-wrap w-100 justify-content-start pe-3 border-bottom py-4 mb-3">
                     <div className="d-flex align-items-start me-3">
-                      <img src={imgLogoUpchRojo} style={imgStyles} />
+                      <img src={imgLogoUpchRojo} style={imgStyles} alt="" />
                     </div>
                     <div className="title-width ">
                       <h5 className="fw-medium">
@@ -116,7 +116,7 @@ const ViewCv = () => {
 
                   <div className="d-flex flex-wrap w-100 justify-content-start pe-3  py-4 mb-3">
                     <div className="d-flex align-items-start me-3">
-                      <img src={imgLogoUsil} style={imgStyles} />
+                      <img src={imgLogoUsil} style={imgStyles} alt="" />
                     </div>
                     <div className="title-width">
                       <h5 className="fw-medium">Docente</h5>
@@ -153,7 +153,7 @@ const ViewCv = () => {
                 >
                   <div className="d-flex flex-wrap w-100 justify-content-start pe-3 border-bottom py-4 mb-3">
                     <div className="d-flex align-items-start me-3">
-                      <img src={imgLogoUpchRojo} style={imgStyles} />
+                      <img src={imgLogoUpchRojo} style={imgStyles} alt="" />
                     </div>
                     <div className="title-width">
                       <h5 className="fw-medium">
@@ -172,7 +172,7 @@ const ViewCv = () => {
                   </div>
                   <div className="d-flex flex-wrap w-100 justify-content-start pe-3  py-4 mb-3">
                     <div className="d-flex align-items-start me-3">
-                      <img src={imgLogoUsil} style={imgStyles} />
+                      <img src={imgLogoUsil} style={imgStyles} alt="" />
                     </div>
                     <div className="title-width">
                       <h5 className="fw-medium">
@@ -198,7 +198,7 @@ const ViewCv = () => {
                 >
                   <div className="d-flex flex-wrap w-100 justify-content-start pe-3 border-bottom py-4 mb-3">
                     <div className="d-flex align-items-start me-3">
-                      <img src={imgLogoIdkn} style={imgStyles} />
+                      <img src={imgLogoIdkn} style={imgStyles} alt="" />
                     </div>
                     <div className="title-width">
                       <h5 className="fw-medium">
@@ -219,7 +219,7 @@ const ViewCv = () => {
                   </div>
                   <div className="d-flex flex-wrap w-100 justify-content-start pe-3  py-4 mb-3">
                     <div className="d-flex align-items-start me-3">
-                      <img src={imgLogoIdkn} style={imgStyles} />
+                      <img src={imgLogoIdkn} style={imgStyles} alt="" />
                     </div>
                     <div className="title-width">
                       <h5 className="fw-medium">
