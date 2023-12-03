@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/require-default-props */
 import React, { ReactNode, useState } from "react";
 import { CustomModal } from ".";
@@ -25,7 +26,7 @@ const Accordion: React.FC<Props> = (props) => {
     <>
       <div className="accordion-item mt-3 mb-3" id={id}>
         <h2 className="accordion-header">
-          <button
+          <a
             className={`accordion-button fw-medium text-decoration-none${
               open ? "" : " collapsed"
             }`}
@@ -58,7 +59,7 @@ const Accordion: React.FC<Props> = (props) => {
                 </div>
               )}
             </div>
-          </button>
+          </a>
         </h2>
         <div
           id={title.replace(/\s+/g, "-")}

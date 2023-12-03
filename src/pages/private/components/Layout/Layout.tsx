@@ -1,5 +1,5 @@
 import React, { Children } from "react";
-import { Header } from "./components";
+import { Footer, Header } from "./components";
 import Sidebar from "./components/Sidebar";
 
 interface Props {
@@ -17,11 +17,7 @@ const Layout: React.FC<Props> = (props) => {
       <div className="container-fluid">
         <Sidebar />
         <div className="main">{elements[0]}</div>
-        <div className="footer ">
-          <div>
-            <p>©2022 Universidad Peruana Cayetano Heredia</p>
-          </div>
-        </div>
+        <Footer />
       </div>
       {elements[1]}
     </>

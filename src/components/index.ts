@@ -1,3 +1,4 @@
+export { default as Loading } from "./Loading";
 export { default as BadgeIcon } from "./icons/BadgeIcon";
 export { default as BarChartIcon } from "./icons/BarChartIcon";
 export { default as CalendarIcon } from "./icons/CalendarIcon";

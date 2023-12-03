@@ -1,5 +1,6 @@
 import { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Loading from "@components/Loading";
 import ROUTES from "./utils";
 
 const Home = lazy(() => import("@pages/private/Home"));
@@ -10,7 +11,7 @@ const ViewCv = lazy(() => import("@pages/private/ViewCv"));
 
 const AppRouter = () => (
   <Router>
-    <Suspense fallback={<div>Cargando ...</div>}>
+    <Suspense fallback={<Loading />}>
       <Routes>
         <Route path={ROUTES.private.home} element={<Home />} />
         <Route path={ROUTES.private.people} element={<People />} />

@@ -1,45 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import logoWhite from "@assets/img/logo-blanco.png";
 import avatarNeutro from "@assets/img/avatar-neutro.png";
-import React, { useEffect } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import ROUTES from "routes/utils";
 
 const Sidebar: React.FC = () => {
-  useEffect(() => {
-    const main = document.querySelector(".main");
-    if (main) {
-      main.addEventListener("click", () => {
-        const homeSelector = document.querySelector(".home");
-        if (homeSelector) homeSelector.classList.add("short");
-      });
-    }
-    function showHover() {
-      const li = document.querySelectorAll(".short .sidebar li a");
-      if (li.length > 0) {
-        li.forEach((item) => {
-          item.addEventListener("mouseover", () => {
-            const text = item.querySelector(".text");
-            if (text) text.classList.add("hover");
-          });
-          item.addEventListener("mouseout", () => {
-            const text = item.querySelector(".text");
-            if (text) text.classList.remove("hover");
-          });
-        });
-      }
-    }
-    function showStoredSidebar() {
-      if (localStorage.getItem("keepSidebar") === "true") {
-        const homeSelector = document.querySelector(".home");
-        if (homeSelector) homeSelector.classList.add("short");
-        showHover();
-      }
-    }
-    showStoredSidebar();
-  }, []);
-
-  const handleCambiarTamano = () => {
+  const handleSizeSidebar = () => {
     const homeSelector = document.querySelector(".home");
     if (document.querySelector(".home.short")) {
       if (homeSelector) homeSelector.classList.remove("short");
@@ -59,7 +26,7 @@ const Sidebar: React.FC = () => {
         <div
           className="menu"
           onClick={() => {
-            handleCambiarTamano();
+            handleSizeSidebar();
           }}
         >
           <svg
