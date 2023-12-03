@@ -91,7 +91,7 @@ const Cv = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [selectedModalOne, setSelectedModalOne] = useState(optionsModalOne[0]);
   const [selectedModalSecondFieldOne, setSelectedModalSecondOne] = useState(
-    optionsModalSecondFieldOne[0]
+    optionsModalSecondFieldOne[0],
   );
   const [selectedModalSecondFieldTwo, setSelectedModalSecondFieldTwo] =
     useState(optionsModalSecondFieldTwo[0]);
@@ -101,10 +101,10 @@ const Cv = () => {
     useState(optionsModalSecondFieldFourth[0]);
 
   const [selectedModalThreeFieldOne, setSelectedModalThreeFieldOne] = useState(
-    optionsModalThreeFieldOne[0]
+    optionsModalThreeFieldOne[0],
   );
   const [selectedModalThreeFieldTwo, setSelectedModalThreeFieldTwo] = useState(
-    optionsModalThreeFieldTwo[0]
+    optionsModalThreeFieldTwo[0],
   );
   const [selectedModalThreeFieldThree, setSelectedModalThreeFieldThree] =
     useState(optionsModalThreeFieldThree[0]);
@@ -180,10 +180,10 @@ const Cv = () => {
         "CHANGED:",
         e.detail.tagify.value,
         e.detail.tagify.getCleanValue(),
-        e.detail.value
+        e.detail.value,
       );
     },
-    []
+    [],
   );
   return (
     <Layout>

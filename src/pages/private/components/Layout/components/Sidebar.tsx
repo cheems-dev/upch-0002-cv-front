@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import LogoImg from "@assets/img/logo.png";
+import LogoImg from "@assets/img/logo-blanco.png";
 import avatarNeutro from "@assets/img/avatar-neutro.png";
 import React from "react";
 import { NavLink } from "react-router-dom";
@@ -20,7 +20,7 @@ const Sidebar: React.FC = () => {
   return (
     <div className="sidebar">
       <div className="sidebartop d-flex">
-        <div className="logo" style={{ width: "auto" }}>
+        <div className="logo">
           <img src={LogoImg} alt="" />
         </div>
         <div
