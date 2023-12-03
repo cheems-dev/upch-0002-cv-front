@@ -21,7 +21,7 @@ const Sidebar: React.FC = () => {
     <div className="sidebar">
       <div className="sidebartop d-flex">
         <div className="logo">
-          <img src={LogoImg} alt="" />
+          <img src={LogoImg} alt="" style={{ width: "75%" }} />
         </div>
         <div
           className="menu"
