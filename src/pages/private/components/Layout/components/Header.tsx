@@ -2,7 +2,7 @@
 import LogoImg from "@assets/img/logo.png";
 import HomeIcon from "@components/icons/HomeIcon";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import ROUTES from "routes/utils";
 
 const Header: React.FC = () => {
@@ -12,9 +12,12 @@ const Header: React.FC = () => {
     <div className="header">
       <nav className="navbar navbar-light navbar-expand-md bg-white justify-content-center">
         <div className="container">
-          <a href="/" className="navbar-brand d-flex w-50 me-auto">
+          <NavLink
+            to={ROUTES.private.home}
+            className="navbar-brand d-flex me-auto"
+          >
             <img src={LogoImg} alt="" />
-          </a>
+          </NavLink>
 
           <button
             className="navbar-toggler "
